@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Summary</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="dist/main.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Summary header -->
+  <header class="summary-header">
+    <div class="left-header">
+      <div class="title-wrapper">
+        <h2 class="title">Summary</h2>
+      </div>
+
+      <div class="entries">
+        <div class="label">Entries:</div>
+        <ul class="entry-list">
+          <li class="entry-item" style="background-color: #8FD5A6"></li>
+          <li class="entry-item" style="background-color: #CCC5B9"></li>
+          <li class="entry-item" style="background-color: #820E36"></li>
+          <li class="entry-item" style="background-color: #46B1C9"></li>
+          <li class="entry-item" style="background-color: #E4E6C3"></li>
+          <li class="entry-item" style="background-color: #8DBA97"></li>
+        </ul>
+      </div>
+
+      <div class="presets">
+        <div class="label">Presets</div>
+        <ul class="preset-list"></ul>
+      </div>
+
+      <div class="highlight">
+        <div class="label">Highlight</div>
+      </div>
+    </div>
+
+    <div class="views">
+      <ul class="view-list">
+        <li class="view-item"></li>
+        <li class="view-item"></li>
+        <li class="view-item"></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main sumamry content -->
+  <section class="summary-body">
+    <section class="sidebar">
+      <div class="options">
+
+        <input id="main-search" type="text" name="search" placeholder="Search">
+
+        <div class="specifics">
+          <header>
+            <h4>Add game entry</h4>
+          </header>
+
+          <div class="select-wrapper">
+            <label for="platform-select" class="label label-small">Platform:</label>
+            <select id="platform-select" class="select select-small">
+            <option value="">HTML5</option>
+            <option value="">Tablet</option>
+            <option value="">Phone</option>
+          </select>
+          </div>
+
+          <div class="select-wrapper">
+            <label for="device-select" class="label label-small">Device:</label>
+            <select id="device-select" class="select select-small">
+            <option value="">All</option>
+            <option value="">iPhone5</option>
+            <option value="">iPhone6</option>
+          </select>
+          </div>
+
+          <div class="select-wrapper">
+            <label for="game-select" class="label label-big">Game:</label>
+            <select id="game-select" class="select select-big">
+            <option value="">Keeping Up With The Paddys</option>
+            <option value="">Bobb The Jackpot</option>
+            <option value="">Paddy Power Gold</option>
+          </select>
+          </div>
+
+          <div class="select-wrapper">
+            <label for="build-select" class="label label-big">Build(time added + index):</label>
+            <select id="build-select" class="select select-big">
+            <option value="">09:52:11 - 333fcc91</option>
+            <option value="">12:00:01 - 666fdd91</option>
+            <option value="">09:52:11 - 333fcc91</option>
+          </select>
+          </div>
+
+          <input id="add-entry" type="button" name="add-entry" value="Add">
+        </div>
+      </div>
+
+      <div class="performance-data">
+        <header>
+          <h4>Performance data</h4>
+        </header>
+
+        <ul class="data-type-list">
+          <li class="data-header">Device Performance</li>
+
+          <li class="data-type">
+            <div class="data-name">Draw Calls</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">FPS</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">CPU Usage</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">Battery Usage</div>
+            <span class="checkbox"></span>
+          </li>
+
+          <li class="data-header">Resource Size</li>
+
+          <li class="data-type">
+            <div class="data-name">Game Size Total</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">Total Graphics Pixels Count</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">Total Sounds Length</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">Other Resources Size</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">Memory Usage Total</div>
+            <span class="checkbox"></span>
+          </li>
+          <li class="data-type">
+            <div class="data-name">Game Size</div>
+            <span class="checkbox"></span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="main-content">
+
+    </section>
+  </section>
+
+  <script src="dist/app.js" type="text/javascript"></script>
+  <script src="dist/vendor.js" type="text/javascript"></script>
+</body>
+
+</html>

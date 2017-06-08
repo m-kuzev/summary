@@ -1,0 +1,84 @@
+.sidebar {
+  width: 300px;
+  height: calc(100vh - 65px);
+  padding: 0 30px;
+  background-color: #222222;
+  color: #FFFFFF;
+  .options {
+    #main-search {
+      width: 100%;
+      border-radius: 5px;
+      padding: 5px 10px;
+      border: 1px solid #222222;
+      box-sizing: border-box;
+      &:focus {
+        outline: none;
+      }
+    }
+    .specifics {
+      margin-top: 25px;
+      header {
+        font-family: "OpenSansBold";
+      }
+      .select-wrapper {
+        margin-bottom: 10px;
+      }
+      .label {
+        line-height: 30px;
+        &.label-small {
+          float: left;
+          width: 50%;
+        }
+        &.label-big {
+          display: inline-block;
+        }
+      }
+      .select {
+        padding: 5px;
+        border-radius: 3px;
+        &.select-small {
+          width: 50%;
+        }
+        &.select-big {
+          width: 100%;
+        }
+      }
+      #add-entry {
+        float: right;
+        width: 80px;
+        height: 23px;
+        background-color: #639FAB;
+        border: 1px solid #639FAB;
+        border-radius: 3px;
+        color: white;
+      }
+    }
+  }
+  .performance-data {
+    clear: both;
+    margin-top: 60px;
+    .data-type-list {
+      .data-header {
+        margin: 20px 0;
+      }
+      .data-type {
+        display: flex;
+        width: 100%;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #535353;
+        .data-name {
+          width: calc(100% - 25px);
+          font-size: 13px;
+        }
+        .checkbox {
+          float: right;
+          width: 20px;
+          height: 20px;
+          background: url('https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/check-square-blue-512.png');
+          background-size: 100%;
+        }
+      }
+    }
+  }
+}

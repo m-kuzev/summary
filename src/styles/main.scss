@@ -1,0 +1,23 @@
+// Used fonts
+@import 'fonts';
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  background-color: whitesmoke;
+  font-family: "Segoe", sans-serif;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.summary-body {
+  display: flex;
+}
+
+@import 'header';
+@import 'sidebar';

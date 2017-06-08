@@ -1,0 +1,73 @@
+.summary-header {
+  display: flex;
+  width: 100%;
+  height: 65px;
+  background-color: #222222;
+  color: #FFFFFF;
+
+  .label {
+    float: left;
+    margin-right: 30px;
+    line-height: 23px;
+  }
+
+  .left-header {
+    display: flex;
+    width: calc(100% - 150px);
+    padding-top: 20px;
+
+    .title-wrapper{
+      width: 20%;
+      padding-left: 30px;
+      font-family: "OpenSansBold";
+
+      .title {
+        margin: 0;
+      }
+    }
+
+    .entries {
+      width: 20%;
+      padding-left: 30px;
+
+      .entry-list {
+        display: flex;
+        padding-top: 2px;
+        // justify-content: space-between;
+
+        .entry-item {
+          width: 21px;
+          height: 21px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .presets {
+      width: 20%;
+    }
+
+    .highlight {
+      
+    }
+  }
+
+  .views {
+    width: 150px;
+    padding-top: 20px;
+    padding-left: 20px;
+    background-color: #F2F2F2;
+    box-sizing: border-box;
+
+    .view-list {
+      .view-item {
+        float: left;
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        background-image: url('https://cdn0.iconfinder.com/data/icons/science-6-2/97/259-512.png');
+        background-size: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+/node_modules
+config/*
+!config/.gitkeep
+!config/config.ini.example
+
+dist/*
+!dist/.gitkeep
+
+uploads/*
+!uploads/.gitkeep
+
+/vendor/
