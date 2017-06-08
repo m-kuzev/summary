@@ -1,3 +1,9 @@
+/**
+ * Main application logic
+ */
 class App {
-  constructor() {}
+  constructor() {
+  }
 }
+
+new App();

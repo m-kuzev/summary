@@ -35,7 +35,8 @@ gulp.task('sass', () => {
 // Concat js
 gulp.task('concat-js', () => {
   return gulp.src([
-    'src/js/**/*.js',
+    'src/js/sidebar.js',
+    'src/js/app.js'
   ]).pipe(concat('app.js')).pipe(gulp.dest('dist/'));
 });
 
@@ -52,18 +53,22 @@ gulp.task('babel', () => {
     .pipe(babel({
       presets: ['es2015']
     }))
-    .pipe(concat('dist/app.js'))
+    .pipe(concat('app.js'))
     .pipe(gulp.dest('dist'));
-});
-
-// Watchers
-gulp.task('watch', () => {
-  gulp.watch('./src/styles/*.scss', ['sass']);
-  gulp.watch('./src/assets/**/*.*', ['copy-assets', 'copy-index']);
 });
 
 
 // Register tasks
 gulp.task('build', (callback) => {
   runSequence('clean', ['copy-assets', 'copy-index', 'sass'], 'babel', callback);
+});
+gulp.task('babel-concat', (callback) => {
+  runSequence(['concat-js', 'concat-vendor'], 'babel', callback);
+});
+
+// Watchers
+gulp.task('watch', () => {
+  gulp.watch('src/styles/*.scss', ['sass']);
+  gulp.watch('src/assets/**/*.*', ['copy-assets', 'copy-index']);
+  gulp.watch('src/js/**/*.js', ['babel-concat']);
 });
