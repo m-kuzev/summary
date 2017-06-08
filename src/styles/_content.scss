@@ -1,0 +1,62 @@
+.main-content {
+  width: 100%;
+  padding: 30px;
+  .main-entry-wrapper {
+    width: 100%;
+    .main-entry-list {
+      display: flex;
+      .main-entry-item {
+        flex-basis: 1px;
+        flex-grow: 1;
+        margin-right: 10px;
+        .main-entry-color {
+          width: 100%;
+          height: 20px;
+        }
+        .main-entry-information {
+          margin-top: 10px;
+          padding: 10px;
+          border: 1px solid #C9C9C9;
+          font-size: 12px;
+          p {
+            margin: 0;
+            line-height: 20px;
+            .game {}
+            .device {}
+            .build {}
+          }
+        }
+      }
+    }
+  }
+  .data-wrapper {
+    display: flex;
+    ul {
+      flex-basis: 1px;
+      flex-grow: 1;
+      margin-right: 10px;
+      &.data-list {
+        li {
+          padding: 10px;
+          margin-bottom: 5px;
+          
+          &.data-header {
+            font-size: 14px;
+          }
+          &.data {
+            font-size: 13px;
+            border: 1px solid #C9C9C9;
+            background-color: #E6E6E6;
+            &:nth-of-type(2n) {
+              background-color: #FFFFFF;
+            }
+            &.description {
+              color: #1C5D99;
+              font-family: 'OpenSansBold', sans-serif;
+            }
+          }
+        }
+      }
+    }
+  }
+}

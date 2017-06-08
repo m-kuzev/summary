@@ -6,7 +6,7 @@ html {
   padding: 0;
   margin: 0;
   background-color: whitesmoke;
-  font-family: "Segoe", sans-serif;
+  font-family: "OpenSans", sans-serif;
 }
 
 ul, ol {
@@ -21,3 +21,4 @@ ul, ol {
 
 @import 'header';
 @import 'sidebar';
+@import 'content';
