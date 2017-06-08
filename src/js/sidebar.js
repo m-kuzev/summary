@@ -2,7 +2,7 @@
  * Sidebar
  */
 class Sidebar {
-  init() {
+  constructor() {
     this.events();
   }
 
