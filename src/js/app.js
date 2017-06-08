@@ -1,1 +1,3 @@
-window.console.log('WOrking');
+class App {
+  constructor() {}
+}

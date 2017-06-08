@@ -25,6 +25,7 @@
       }
       .label {
         line-height: 30px;
+        font-size: 14px;
         &.label-small {
           float: left;
           width: 50%;
@@ -34,7 +35,7 @@
         }
       }
       .select {
-        padding: 5px;
+        padding: 2px;
         border-radius: 3px;
         &.select-small {
           width: 50%;
@@ -51,6 +52,7 @@
         border: 1px solid #639FAB;
         border-radius: 3px;
         color: white;
+        font-family: 'OpenSans', sans-serif;
       }
     }
   }
@@ -58,9 +60,9 @@
     clear: both;
     margin-top: 60px;
     .data-type-list {
-      .data-header {
-        margin: 20px 0;
-      }
+      // .data-header {
+      //   margin: 20px 0;
+      // }
       .data-type {
         display: flex;
         width: 100%;
@@ -73,10 +75,25 @@
         }
         .checkbox {
           float: right;
-          width: 20px;
-          height: 20px;
-          background: url('https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/check-square-blue-512.png');
-          background-size: 100%;
+          width: 18px;
+          height: 18px;
+          color: #FFFFFF;
+          border-radius: 3px;
+          background-color: #E6E6E6;
+          border: 1px solid #FFFFFF;
+          cursor: pointer;
+          box-sizing: border-box;
+          &.active {
+            background-color: #639FAB;
+            border: none;
+            &::after {
+              position: absolute;
+              margin-top: -2px;
+              margin-left: 2px;
+              display: block;
+              content: '\2713 ';
+            }
+          }
         }
       }
     }

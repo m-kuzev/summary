@@ -1,8 +1,11 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const clean = require('gulp-clean');
+const babel = require('gulp-babel');
 const concat = require('gulp-concat');
+const runSequence = require('run-sequence');
 
+// Clean dist
 gulp.task('clean', () => {
   return gulp.src('dist/', {
     read: false
@@ -11,16 +14,17 @@ gulp.task('clean', () => {
 
 // Copy files
 gulp.task('copy-assets', () => {
-  gulp.src(['assets/**/*'])
+  return gulp.src(['assets/**/*'])
     .pipe(gulp.dest('dist/assets/'));
 });
 gulp.task('copy-index', () => {
-  gulp.src(['index.html'])
+  return gulp.src(['index.html'])
     .pipe(gulp.dest('dist/'));
 });
 
+// Compile sass
 gulp.task('sass', () => {
-  gulp.src('src/styles/*.scss')
+  return gulp.src('src/styles/*.scss')
     .pipe(sass({
       outputStyle: 'compressed'
     }))
@@ -31,20 +35,35 @@ gulp.task('sass', () => {
 // Concat js
 gulp.task('concat-js', () => {
   return gulp.src([
-    'src/js/app.js',
+    'src/js/**/*.js',
   ]).pipe(concat('app.js')).pipe(gulp.dest('dist/'));
 });
 
 // Concat vendor
 gulp.task('concat-vendor', () => {
   return gulp.src([
-    'src/js/',
+    'src/js/vendor/**/*.js',
   ]).pipe(concat('vendor.js')).pipe(gulp.dest('dist/'));
 });
 
-gulp.task('sass:watch', ['sass'], () => {
-  gulp.watch('./src/styles/*.scss', ['sass']);
+// Babel
+gulp.task('babel', () => {
+  return gulp.src('src/js/**/*.js')
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(concat('dist/app.js'))
+    .pipe(gulp.dest('dist'));
 });
 
+// Watchers
+gulp.task('watch', () => {
+  gulp.watch('./src/styles/*.scss', ['sass']);
+  gulp.watch('./src/assets/**/*.*', ['copy-assets', 'copy-index']);
+});
+
+
 // Register tasks
-gulp.task('build', ['copy-index', 'copy-assets', 'sass']);
+gulp.task('build', (callback) => {
+  runSequence('clean', ['copy-assets', 'copy-index', 'sass'], 'babel', callback);
+});

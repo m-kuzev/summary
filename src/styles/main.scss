@@ -1,15 +1,21 @@
 // Used fonts
 @import 'fonts';
-
 body,
 html {
   padding: 0;
   margin: 0;
   background-color: whitesmoke;
-  font-family: "OpenSans", sans-serif;
+  font-family: "OpenSansLight", sans-serif;
 }
 
-ul, ol {
+select,
+ul,
+ol {
+  font-family: "OpenSansLight", sans-serif;
+}
+
+ul,
+ol {
   margin: 0;
   padding: 0;
   list-style-type: none;
