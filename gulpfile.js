@@ -1,9 +1,18 @@
+const path = require('path');
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const clean = require('gulp-clean');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const runSequence = require('run-sequence');
+const babelify = require('babelify');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+
+gulp.task('default', function () {
+
+});
+
 
 // Clean dist
 gulp.task('clean', () => {
@@ -32,15 +41,6 @@ gulp.task('sass', () => {
     .pipe(gulp.dest('dist/'));
 });
 
-// Concat js
-gulp.task('concat-js', () => {
-  return gulp.src([
-      'src/js/sidebar.js',
-      'src/js/app.js'
-    ])
-    .pipe(concat('app.js')).pipe(gulp.dest('dist/'));
-});
-
 // Concat vendor
 gulp.task('concat-vendor', () => {
   return gulp.src([
@@ -50,26 +50,31 @@ gulp.task('concat-vendor', () => {
 
 // Babel
 gulp.task('babel', () => {
-  return gulp.src('dist/app.js')
-    .pipe(babel({
+  return browserify()
+    .require('src/js/app.js', {
+      entry: true,
+      extensions: ['.js'],
+      debug: true
+    })
+    .transform(babelify, {
       presets: ['es2015']
-    }))
+    })
+    .bundle()
+    .pipe(source('app.js'))
     .pipe(gulp.dest('dist'));
 });
 
 
 // Register tasks
 gulp.task('build', (callback) => {
-  runSequence('clean', ['copy-assets', 'copy-index', 'sass'], 'babel-concat', callback);
-});
-gulp.task('babel-concat', (callback) => {
-  runSequence(['concat-js', 'concat-vendor'], 'babel', callback);
+  runSequence('clean', ['copy-assets', 'copy-index', 'concat-vendor', 'sass'], 'babel', callback);
 });
 
 // Watchers
 gulp.task('watch', () => {
   gulp.watch('src/styles/*.scss', ['sass']);
   gulp.watch('src/assets/**/*.*', ['copy-assets', 'copy-index']);
-  gulp.watch('src/js/*.js', ['babel-concat']);
+  gulp.watch('src/js/*.js', ['babel']);
+  gulp.watch('src/templates/**/*.hbs', ['babel']);
   gulp.watch('src/js/vendor/**/*.js', ['concat-vendor']);
 });

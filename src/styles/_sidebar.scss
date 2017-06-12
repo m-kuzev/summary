@@ -83,7 +83,9 @@
           border: 1px solid #FFFFFF;
           cursor: pointer;
           box-sizing: border-box;
-          &.active {
+        }
+        &.active {
+          .checkbox {
             background-color: #639FAB;
             border: none;
             &::after {

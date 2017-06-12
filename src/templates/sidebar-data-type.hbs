@@ -1,0 +1,12 @@
+<header>
+  <h4>Performance data</h4>
+</header>
+
+<ul class="data-type-list">
+  {{#each categories}} {{#each this}}
+  <li id="type-{{ @index }}" class="data-type" type="{{ @key }}">
+    <div class="data-name" type="{{ @key }}">{{ splitAndUpperCase @key }}</div>
+    <span class="checkbox {{#if this}}active{{/if}}" type="{{ @key }}"></span>
+  </li>
+  {{/each}} {{/each}}
+</ul>

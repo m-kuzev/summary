@@ -1,4 +1,4 @@
-// Imports sidebar.js
+import Sidebar from './sidebar.js';
 
 /**
  * Main application logic
