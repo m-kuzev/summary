@@ -52,7 +52,7 @@
     <section class="sidebar">
       <div class="options">
 
-        <input id="main-search" type="text" name="search" placeholder="Search">
+        <!--<input id="main-search" type="text" name="search" placeholder="Search">-->
 
         <div class="specifics">
           <header>
@@ -61,41 +61,25 @@
 
           <div class="select-wrapper">
             <label for="platform-select" class="label label-small">Platform:</label>
-            <select id="platform-select" class="select select-small">
-            <option value="">-</option>
-            <option value="">HTML5</option>
-            <option value="">Tablet</option>
-            <option value="">Phone</option>
-          </select>
+            <select id="platform-select" order="0" class="select select-small" data-placeholder="-">
+            </select>
           </div>
 
           <div class="select-wrapper">
             <label for="device-select" class="label label-small">Device:</label>
-            <select id="device-select" class="select select-small">
-              <option value="">-</option>
-            <option value="">All</option>
-            <option value="">iPhone5</option>
-            <option value="">iPhone6</option>
-          </select>
+            <select id="device-select" order="1" class="select select-small" data-placeholder="-" disabled>
+            </select>
           </div>
 
           <div class="select-wrapper">
             <label for="game-select" class="label label-big">Game:</label>
-            <select id="game-select" class="select select-big">
-            <option value="">-</option>
-            <option value="">Keeping Up With The Paddys</option>
-            <option value="">Bobb The Jackpot</option>
-            <option value="">Paddy Power Gold</option>
-          </select>
+            <select id="game-select" order="2" class="select select-big" data-placeholder="-" disabled>
+            </select>
           </div>
 
           <div class="select-wrapper">
             <label for="build-select" class="label label-big">Build(time added + index):</label>
-            <select id="build-select" class="select select-big">
-            <option value="">-</option>
-            <option value="">09:52:11 - 333fcc91</option>
-            <option value="">12:00:01 - 666fdd91</option>
-            <option value="">09:52:11 - 333fcc91</option>
+            <select id="build-select" order="3" class="select select-big" data-placeholder="-" disabled>
           </select>
           </div>
 

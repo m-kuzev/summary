@@ -44,7 +44,9 @@ gulp.task('sass', () => {
 // Concat vendor
 gulp.task('concat-vendor', () => {
   return gulp.src([
-    'src/js/vendor/**/*.js',
+    'src/js/vendor/jquery-3.2.1.min.js',
+    'src/js/vendor/chosen.jquery.min.js',
+    'src/js/vendor/handlebars-v4.0.10.js',
   ]).pipe(concat('vendor.js')).pipe(gulp.dest('dist/'));
 });
 

@@ -56,6 +56,31 @@ export default class Template {
     });
   }
 
+  /**
+   * Generate option tag html
+   * @param {selector} select - id selector
+   * @param {array} data - data array
+   * @param {function} callback
+   */
+  static generateOptionHtml(select, data, callback) {
+    const selectMenu = document.querySelector(select);
+    selectMenu.innerHTML = '';
+    const frag = document.createDocumentFragment();
+
+    let opt = {};
+    for (let i = 0; i < data.length; i++) {
+      opt = document.createElement('option');
+      opt.value = data[i];
+      opt.innerHTML = data[i];
+      frag.appendChild(opt);
+    }
+    selectMenu.appendChild(frag);
+
+    if (callback) {
+      callback();
+    }
+  }
+
   /** Register template helpers */
   registerHelpers() {
     Handlebars.registerHelper('splitAndUpperCase', function (text) {
