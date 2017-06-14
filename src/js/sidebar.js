@@ -1,6 +1,8 @@
 import Template from './template.js';
 import Backend from './backend.js';
 
+const _selectOrder = ['#platform-select', '#device-select', '#game-select', '#build-select'];
+
 /**
  * Sidebar class handling all sidebar options and events
  */
@@ -30,29 +32,27 @@ export default class Sidebar {
   }
 
   entryOptions() {
-    const selectOrder = ['#platform-select', '#device-select', '#game-select', '#build-select'];
-
     // Select menus events
-    selectOrder.forEach((element, index) => {
+    _selectOrder.forEach((element, index) => {
       // Change event
       $(element).chosen().change((e, params) => {
         const elementOrder = Number(e.target.getAttribute('order'));
 
         // Disable all select menus
-        for (let i = elementOrder + 1; i < selectOrder.length; i++) {
-          $(selectOrder[i]).prop('disabled', true);
-          $(selectOrder[i]).val('-');
-          $(selectOrder[i]).trigger('chosen:updated');
+        for (let i = elementOrder + 1; i < _selectOrder.length; i++) {
+          $(_selectOrder[i]).prop('disabled', true);
+          $(_selectOrder[i]).val('-');
+          $(_selectOrder[i]).trigger('chosen:updated');
         }
 
         // Re-Enable the current changed menu
-        const nextSelectInLine = selectOrder[index + 1];
-        $(selectOrder[index]).prop('disabled', false);
-        $(selectOrder[index]).trigger('chosen:updated');
+        const nextSelectInLine = _selectOrder[index + 1];
+        $(_selectOrder[index]).prop('disabled', false);
+        $(_selectOrder[index]).trigger('chosen:updated');
 
         // If a valid value is selected fill the next select in line and apply changes
-        if (params.selected.length !== 1 && selectOrder[elementOrder + 1]) {
-          this.fillSelect(nextSelectInLine, Backend.getOptions(selectOrder[elementOrder + 1]));
+        if (params.selected.length !== 1 && _selectOrder[elementOrder + 1]) {
+          this.fillSelect(nextSelectInLine, Backend.getOptions(_selectOrder[elementOrder + 1]));
         }
       });
     });
@@ -67,14 +67,49 @@ export default class Sidebar {
       // Validate for missing data
       const valid = this.validateDropdowns();
       if (valid) {
-        // TODO: send request
-        
+        this.formatAndSendData();
       } else {
         alert('Please select the missing options!');
       }
     });
   }
 
+  formatAndSendData() {
+    // TODO: send request
+    // const form = document.getElementById('new-entry-form');
+    // const data = new FormData(form);
+
+    // Data for request
+    // for (const pair of data.entries()) {
+    //   window.console.log(pair[0] + ', ' + pair[1]);
+    // }
+
+    const response = Backend.entryJson();
+    const event = new CustomEvent('sidebar.addEntry', {
+      detail: response
+    });
+    window.dispatchEvent(event);
+    this.resetForm();
+  }
+
+  /** Reset entry form after successfully adding the entry */
+  resetForm() {
+    // Default platform select values
+    this.fillSelect(_selectOrder[0], Backend.getOptions('platform'));
+
+    _selectOrder.forEach((selectId, index) => {
+      // _selectOrder[0] -> platform
+      if (index !== 0) {
+        this.fillSelect(selectId, ['']);
+        $(selectId).prop('disabled', true).trigger('chosen:updated');
+      }
+    });
+  }
+
+  /**
+   * Validate select fields
+   * @returns {boolean} isValid
+   */
   validateDropdowns() {
     let valid = true;
 
@@ -104,7 +139,7 @@ export default class Sidebar {
   loadDataTypes() {
     const performanceData = Backend.performanceDataJson();
 
-    Template.load('.performance-data', 'sidebar-data-type', performanceData, () => {
+    Template.load('.performance-data', 'sidebar-data-type', performanceData, false, () => {
       this.dataTypeEvents();
     });
   }
@@ -116,16 +151,17 @@ export default class Sidebar {
       const liElement = e.target.parentNode;
       liElement.classList.toggle('active');
 
-      // Trigger content event for data type enabling/disabling
-      const evt = new CustomEvent('sidebar.dataTypeToggle', {
+      const eventDetails = {
         detail: {
           id: liElement.getAttribute('id'),
           type: liElement.getAttribute('type'),
           active: liElement.classList.contains('active')
         }
-      });
+      };
 
-      window.dispatchEvent(evt);
+      // Trigger content event for data type enabling/disabling
+      const event = new CustomEvent('sidebar.dataTypeToggle', eventDetails);
+      window.dispatchEvent(event);
     });
   }
 }

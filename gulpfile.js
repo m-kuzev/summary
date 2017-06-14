@@ -26,8 +26,8 @@ gulp.task('copy-assets', () => {
   return gulp.src(['src/assets/**/*'])
     .pipe(gulp.dest('dist/assets/'));
 });
-gulp.task('copy-index', () => {
-  return gulp.src(['index.html'])
+gulp.task('copy-html', () => {
+  return gulp.src(['src/index.html'])
     .pipe(gulp.dest('dist/'));
 });
 
@@ -69,13 +69,14 @@ gulp.task('babel', () => {
 
 // Register tasks
 gulp.task('build', (callback) => {
-  runSequence('clean', ['copy-assets', 'copy-index', 'concat-vendor', 'sass'], 'babel', callback);
+  runSequence('clean', ['copy-assets', 'copy-html', 'concat-vendor', 'sass'], 'babel', callback);
 });
 
 // Watchers
 gulp.task('watch', () => {
   gulp.watch('src/styles/*.scss', ['sass']);
-  gulp.watch('src/assets/**/*.*', ['copy-assets', 'copy-index']);
+  gulp.watch('src/assets/**/*.*', ['copy-assets']);
+  gulp.watch('src/*.html', ['copy-html']);
   gulp.watch('src/js/*.js', ['babel']);
   gulp.watch('src/templates/**/*.hbs', ['babel']);
   gulp.watch('src/js/vendor/**/*.js', ['concat-vendor']);

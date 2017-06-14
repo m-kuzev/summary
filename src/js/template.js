@@ -15,16 +15,21 @@ export default class Template {
    * @param {string} selector - query string for the desired element to load html in to
    * @param {string} filename - template name
    * @param {object} data - template data/context
+   * @param {boolean} append - should the template be appended to the element or replaced
    * @param {function} callback
    */
-  static load(selector, filename, data, callback) {
+  static load(selector, filename, data, append, callback) {
     Template.getTemplate(filename).then((templateData) => {
       // Prepare html and context data
       const template = Handlebars.compile(templateData);
       const html = template(data);
 
       // Load the data in the selected element
-      document.querySelector(selector).innerHTML = html;
+      if (append) {
+        document.querySelector(selector).insertAdjacentHTML('beforeend', html);
+      } else {
+        document.querySelector(selector).innerHTML = html;
+      }
 
       // Execute callback is such is selected
       if (callback) {
@@ -41,7 +46,7 @@ export default class Template {
   static getTemplate(filename) {
     return new Promise(function (resolve, reject) {
       const req = new XMLHttpRequest();
-      req.open('GET', 'src/templates/' + filename + '.hbs', true);
+      req.open('GET', '/src/templates/' + filename + '.hbs', true);
 
       req.onreadystatechange = function () {
         if (req.readyState != 4 || req.status != 200) return;

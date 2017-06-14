@@ -1,3 +1,4 @@
+import Header from './header.js';
 import Sidebar from './sidebar.js';
 
 /**
@@ -6,6 +7,7 @@ import Sidebar from './sidebar.js';
 class App {
   constructor() {
     new Sidebar();
+    new Header();
   }
 }
 
