@@ -17,7 +17,7 @@ export default class Sidebar {
       no_results_text: 'No results!'
     };
 
-    this.fillSelect('#platform-select', ['-', 'html5', 'tablet', 'phone']);
+    this.fillSelect('#platform-select', Backend.getOptions('platform'));
 
     // Select types
     $('#platform-select').chosen(globalOptions);
@@ -25,12 +25,14 @@ export default class Sidebar {
     $('#game-select').chosen(globalOptions);
     $('#build-select').chosen(globalOptions);
 
-    this.optionEvents();
+    this.entryOptions();
+    this.addEntryEvent();
   }
 
-  optionEvents() {
+  entryOptions() {
     const selectOrder = ['#platform-select', '#device-select', '#game-select', '#build-select'];
 
+    // Select menus events
     selectOrder.forEach((element, index) => {
       // Change event
       $(element).chosen().change((e, params) => {
@@ -50,10 +52,40 @@ export default class Sidebar {
 
         // If a valid value is selected fill the next select in line and apply changes
         if (params.selected.length !== 1 && selectOrder[elementOrder + 1]) {
-          this.fillSelect(nextSelectInLine, ['one', 'two', 'three']);
+          this.fillSelect(nextSelectInLine, Backend.getOptions(selectOrder[elementOrder + 1]));
         }
       });
     });
+  }
+
+  addEntryEvent() {
+    // Add button event
+    const addButton = document.getElementById('add-entry');
+    addButton.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // Validate for missing data
+      const valid = this.validateDropdowns();
+      if (valid) {
+        // TODO: send request
+        
+      } else {
+        alert('Please select the missing options!');
+      }
+    });
+  }
+
+  validateDropdowns() {
+    let valid = true;
+
+    const selectDropdowns = document.querySelectorAll('.specifics select');
+    selectDropdowns.forEach((select) => {
+      if (select.disabled) {
+        valid = false;
+      }
+    });
+
+    return valid;
   }
 
   /**

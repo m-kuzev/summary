@@ -68,11 +68,20 @@ export default class Template {
     const frag = document.createDocumentFragment();
 
     let opt = {};
-    for (let i = 0; i < data.length; i++) {
-      opt = document.createElement('option');
-      opt.value = data[i];
-      opt.innerHTML = data[i];
-      frag.appendChild(opt);
+    if (data.length) {
+      for (let i = 0; i < data.length; i++) {
+        opt = document.createElement('option');
+        opt.value = data[i];
+        opt.innerHTML = data[i];
+        frag.appendChild(opt);
+      }
+    } else {
+      for (const key in data) {
+        opt = document.createElement('option');
+        opt.value = data[key];
+        opt.innerHTML = key;
+        frag.appendChild(opt);
+      }
     }
     selectMenu.appendChild(frag);
 

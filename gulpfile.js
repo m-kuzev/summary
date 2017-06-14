@@ -23,7 +23,7 @@ gulp.task('clean', () => {
 
 // Copy files
 gulp.task('copy-assets', () => {
-  return gulp.src(['assets/**/*'])
+  return gulp.src(['src/assets/**/*'])
     .pipe(gulp.dest('dist/assets/'));
 });
 gulp.task('copy-index', () => {

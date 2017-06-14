@@ -59,31 +59,34 @@
             <h4>Add game entry</h4>
           </header>
 
-          <div class="select-wrapper">
-            <label for="platform-select" class="label label-small">Platform:</label>
-            <select id="platform-select" order="0" class="select select-small" data-placeholder="-">
+          <form id="new-entry-form">
+            <div class="select-wrapper">
+              <label for="platform-select" class="label label-small">Platform:</label>
+              <select id="platform-select" order="0" class="select select-small" data-placeholder="-">
+              </select>
+            </div>
+
+            <div class="select-wrapper">
+              <label for="device-select" class="label label-small">Device:</label>
+              <select id="device-select" order="1" class="select select-small" data-placeholder="-" disabled>
+              </select>
+            </div>
+
+            <div class="select-wrapper">
+              <label for="game-select" class="label label-big">Game:</label>
+              <select id="game-select" order="2" class="select select-big" data-placeholder="-" disabled>
+              </select>
+            </div>
+
+            <div class="select-wrapper">
+              <label for="build-select" class="label label-big">Build(time added + index):</label>
+              <select id="build-select" order="3" class="select select-big" data-placeholder="-" disabled>
             </select>
-          </div>
+            </div>
 
-          <div class="select-wrapper">
-            <label for="device-select" class="label label-small">Device:</label>
-            <select id="device-select" order="1" class="select select-small" data-placeholder="-" disabled>
-            </select>
-          </div>
+            <input id="add-entry" type="submit" name="add-entry" value="Add">
 
-          <div class="select-wrapper">
-            <label for="game-select" class="label label-big">Game:</label>
-            <select id="game-select" order="2" class="select select-big" data-placeholder="-" disabled>
-            </select>
-          </div>
-
-          <div class="select-wrapper">
-            <label for="build-select" class="label label-big">Build(time added + index):</label>
-            <select id="build-select" order="3" class="select select-big" data-placeholder="-" disabled>
-          </select>
-          </div>
-
-          <input id="add-entry" type="button" name="add-entry" value="Add">
+          </form>
         </div>
       </div>
 
