@@ -19,23 +19,21 @@ export default class Template {
    * @param {function} callback
    */
   static load(selector, filename, data, append, callback) {
-    Template.getTemplate(filename).then((templateData) => {
-      // Prepare html and context data
-      const template = Handlebars.compile(templateData);
-      const html = template(data);
+    // Prepare html and context data
+    const template = Handlebars.templates[filename];
+    const html = template(data);
 
-      // Load the data in the selected element
-      if (append) {
-        document.querySelector(selector).insertAdjacentHTML('beforeend', html);
-      } else {
-        document.querySelector(selector).innerHTML = html;
-      }
+    // Load the data in the selected element
+    if (append) {
+      document.querySelector(selector).insertAdjacentHTML('beforeend', html);
+    } else {
+      document.querySelector(selector).innerHTML = html;
+    }
 
-      // Execute callback is such is selected
-      if (callback) {
-        callback();
-      }
-    });
+    // Execute callback is such is selected
+    if (callback) {
+      callback();
+    }
   }
 
   /**

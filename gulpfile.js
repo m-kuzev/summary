@@ -1,18 +1,18 @@
-const path = require('path');
+// General
 const gulp = require('gulp');
+const runSequence = require('run-sequence');
+// Relocate resources
 const sass = require('gulp-sass');
 const clean = require('gulp-clean');
-const babel = require('gulp-babel');
 const concat = require('gulp-concat');
-const runSequence = require('run-sequence');
+// Babel
 const babelify = require('babelify');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
-
-gulp.task('default', function () {
-
-});
-
+// Handlebars precompilation
+const handlebars = require('gulp-handlebars');
+const wrap = require('gulp-wrap');
+const declare = require('gulp-declare');
 
 // Clean dist
 gulp.task('clean', () => {
@@ -20,17 +20,16 @@ gulp.task('clean', () => {
     read: false
   }).pipe(clean());
 });
-
-// Copy files
+// Copy assets folder
 gulp.task('copy-assets', () => {
   return gulp.src(['src/assets/**/*'])
     .pipe(gulp.dest('dist/assets/'));
 });
+// Copy html files
 gulp.task('copy-html', () => {
   return gulp.src(['src/index.html'])
     .pipe(gulp.dest('dist/'));
 });
-
 // Compile sass
 gulp.task('sass', () => {
   return gulp.src('src/styles/*.scss')
@@ -40,8 +39,7 @@ gulp.task('sass', () => {
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist/'));
 });
-
-// Concat vendor
+// Concat vendor files
 gulp.task('concat-vendor', () => {
   return gulp.src([
     'src/js/vendor/jquery-3.2.1.min.js',
@@ -49,7 +47,6 @@ gulp.task('concat-vendor', () => {
     'src/js/vendor/handlebars-v4.0.10.js',
   ]).pipe(concat('vendor.js')).pipe(gulp.dest('dist/'));
 });
-
 // Babel
 gulp.task('babel', () => {
   return browserify()
@@ -65,19 +62,33 @@ gulp.task('babel', () => {
     .pipe(source('app.js'))
     .pipe(gulp.dest('dist'));
 });
-
+// Handlebars
+gulp.task('precompile', () => {
+  gulp.src('src/templates/*.hbs')
+    .pipe(handlebars({
+      handlebars: require('handlebars')
+    }))
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Handlebars.templates',
+      noRedeclare: true, // Avoid duplicate declarations
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('dist/'));
+});
 
 // Register tasks
 gulp.task('build', (callback) => {
-  runSequence('clean', ['copy-assets', 'copy-html', 'concat-vendor', 'sass'], 'babel', callback);
+  runSequence('clean', ['copy-assets', 'copy-html', 'concat-vendor', 'sass', 'precompile'], 'babel', callback);
 });
 
 // Watchers
-gulp.task('watch', () => {
+gulp.task('watch', ['build'], () => {
   gulp.watch('src/styles/*.scss', ['sass']);
   gulp.watch('src/assets/**/*.*', ['copy-assets']);
   gulp.watch('src/*.html', ['copy-html']);
   gulp.watch('src/js/*.js', ['babel']);
   gulp.watch('src/templates/**/*.hbs', ['babel']);
   gulp.watch('src/js/vendor/**/*.js', ['concat-vendor']);
+  gulp.watch('src/templates/*.bhs', ['precompile']);
 });
