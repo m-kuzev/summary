@@ -65,8 +65,7 @@ export default class Sidebar {
       e.preventDefault();
 
       // Validate for missing data
-      const valid = this.validateDropdowns();
-      if (valid) {
+      if (this.validateDropdowns()) {
         this.formatAndSendData();
       } else {
         alert('Please select the missing options!');

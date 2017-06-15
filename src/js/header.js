@@ -38,8 +38,7 @@ export default class Header {
       if (clicked.classList.contains('entry-item')) {
         const entryId = clicked.getAttribute('entry_id');
 
-        const shouldDelete = confirm('Are you sure you want to delete this entry?');
-        if (shouldDelete) {
+        if (confirm('Are you sure you want to delete this entry?')) {
           const entryElements = document.querySelectorAll('[entry_id="' + entryId + '"]');
           entryElements.forEach((element) => {
             element.parentNode.removeChild(element);
