@@ -27,7 +27,12 @@ ol {
   display: flex;
 }
 
+.main-content {
+  width: 100%;
+  padding: 30px;
+}
+
 // Custom css
 @import 'header';
 @import 'sidebar';
-@import 'content';
+@import 'tableView';

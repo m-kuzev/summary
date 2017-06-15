@@ -1,0 +1,8 @@
+{{#each categories}}
+  <li class="data-header">{{ splitAndUpperCase @key }}</li>
+  {{#each this}}
+    {{#if this}}
+      <li class="data description" type="{{ @key }}">{{ splitAndUpperCase @key }}</li>
+    {{/if}} 
+  {{/each}} 
+{{/each}}

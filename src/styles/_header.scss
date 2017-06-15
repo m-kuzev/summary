@@ -32,6 +32,9 @@
           height: 21px;
           margin-right: 10px;
           cursor: pointer;
+          &.hidden {
+            background-color: #6b6b6b !important;
+          }
         }
       }
     }

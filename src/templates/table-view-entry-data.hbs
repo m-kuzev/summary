@@ -1,0 +1,8 @@
+<ul class="table-entry-data-list" entry_id="{{ id }}">
+  {{#each categories}}
+    <li class="data-header">&nbsp;</li>
+    {{#each this}}
+    <li class="data" type="{{ @key }}">{{ this }}</li>
+    {{/each}}
+  {{/each}}
+</ul>

@@ -4,24 +4,24 @@ export default class Backend {
     const dataOptions = {
       categories: {
         devicePerformance: {
-          drawCalls: false,
-          fps: false,
-          cpuUsage: false,
-          batteryUsage: false,
+          drawCalls: true,
+          fps: true,
+          cpuUsage: true,
+          batteryUsage: true,
         },
 
         resourceSize: {
-          gameSizeTotal: false,
-          totalPixelsCount: false,
-          totalSoundLength: false,
-          otherResources: false,
+          gameSizeTotal: true,
+          totalPixelsCount: true,
+          totalSoundLength: true,
+          otherResources: true,
         },
 
         memoryUsage: {
-          memoryUsageTotal: false,
-          graphicMemory: false,
-          soundsMemory: false,
-          topbarNativeApp: false
+          memoryUsageTotal: true,
+          graphicMemory: true,
+          soundsMemory: true,
+          topbarNativeApp: true
         }
       }
     };

@@ -1,0 +1,69 @@
+.table-entry-header-wrapper {
+  width: 100%;
+  .table-entry-header-list {
+    display: flex;
+    .table-entry-header {
+      flex-basis: 1px;
+      flex-grow: 1;
+      margin-right: 10px;
+      max-width: 200px;
+      height: 110px;
+      &.hidden {
+        display: none;
+      }
+      .table-entry-color {
+        width: 100%;
+        height: 20px;
+      }
+      .table-entry-info {
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #C9C9C9;
+        font-size: 12px;
+        background-color: #FFFFFF;
+        p {
+          margin: 0;
+          line-height: 20px;
+          font-family: 'OpenSans', sans-serif;
+        }
+      }
+    }
+  }
+}
+
+.table-entry-data-wrapper {
+  display: flex;
+  .table-entry-data-list {
+    flex-basis: 1px;
+    flex-grow: 1;
+    margin-right: 10px;
+    max-width: 200px;
+    &.hidden {
+      display: none;
+    }
+    &.table-entry-data-list {
+      li {
+        padding: 10px;
+        margin-bottom: 5px;
+        &.data-header {
+          font-size: 14px;
+        }
+        &.data {
+          font-size: 13px;
+          border: 1px solid #C9C9C9;
+          background-color: #E6E6E6;
+          &.hidden {
+            display: none;
+          }
+          &:nth-of-type(2n) {
+            background-color: #FFFFFF;
+          }
+          &.description {
+            color: #1C5D99;
+            font-family: 'OpenSansBold', sans-serif;
+          }
+        }
+      }
+    }
+  }
+}

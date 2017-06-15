@@ -88,7 +88,7 @@ export default class Sidebar {
     const event = new CustomEvent('sidebar.addEntry', {
       detail: response
     });
-    window.dispatchEvent(event);
+    document.dispatchEvent(event);
     this.resetForm();
   }
 
@@ -145,6 +145,7 @@ export default class Sidebar {
   }
 
   dataTypeEvents() {
+    // Event ORIGINS
     // Data type select/deselect
     const dataTypeUl = document.getElementsByClassName('data-type-list')[0];
     dataTypeUl.addEventListener('click', function (e) {
@@ -153,15 +154,13 @@ export default class Sidebar {
 
       const eventDetails = {
         detail: {
-          id: liElement.getAttribute('id'),
           type: liElement.getAttribute('type'),
-          active: liElement.classList.contains('active')
         }
       };
 
       // Trigger content event for data type enabling/disabling
       const event = new CustomEvent('sidebar.dataTypeToggle', eventDetails);
-      window.dispatchEvent(event);
+      document.dispatchEvent(event);
     });
   }
 }
