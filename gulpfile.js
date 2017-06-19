@@ -1,5 +1,6 @@
 // General
 const gulp = require('gulp');
+const uglify = require('gulp-uglify');
 const runSequence = require('run-sequence');
 // Relocate resources
 const sass = require('gulp-sass');
@@ -8,6 +9,7 @@ const concat = require('gulp-concat');
 // Babel
 const babelify = require('babelify');
 const browserify = require('browserify');
+const buffer = require('vinyl-buffer');
 const source = require('vinyl-source-stream');
 // Handlebars precompilation
 const handlebars = require('gulp-handlebars');
@@ -60,6 +62,8 @@ gulp.task('babel', () => {
     })
     .bundle()
     .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
 // Handlebars
@@ -74,6 +78,7 @@ gulp.task('precompile', () => {
       noRedeclare: true, // Avoid duplicate declarations
     }))
     .pipe(concat('templates.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('dist/'));
 });
 
