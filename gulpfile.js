@@ -6,15 +6,31 @@ const runSequence = require('run-sequence');
 const sass = require('gulp-sass');
 const clean = require('gulp-clean');
 const concat = require('gulp-concat');
-// Babel
-const babelify = require('babelify');
-const browserify = require('browserify');
-const buffer = require('vinyl-buffer');
-const source = require('vinyl-source-stream');
 // Handlebars precompilation
 const handlebars = require('gulp-handlebars');
 const wrap = require('gulp-wrap');
 const declare = require('gulp-declare');
+// Rollup + Babel
+const rollup = require('rollup-stream');
+const babel = require('rollup-plugin-babel');
+const source = require('vinyl-source-stream');
+const rollupUglify = require('rollup-plugin-uglify');
+
+gulp.task('rollup', function () {
+  return rollup({
+    entry: './src/js/app.js',
+    format: 'umd',
+    plugins: [
+      babel({
+        exclude: 'node_modules/**',
+        presets: ['es2015-rollup']
+      }),
+      rollupUglify()
+    ],
+  })
+  .pipe(source('app.js'))
+  .pipe(gulp.dest('./dist/'));
+});
 
 // Clean dist
 gulp.task('clean', () => {
@@ -49,23 +65,6 @@ gulp.task('concat-vendor', () => {
     'src/js/vendor/handlebars-v4.0.10.js',
   ]).pipe(concat('vendor.js')).pipe(gulp.dest('dist/'));
 });
-// Babel
-gulp.task('babel', () => {
-  return browserify()
-    .require('src/js/app.js', {
-      entry: true,
-      extensions: ['.js'],
-      debug: true
-    })
-    .transform(babelify, {
-      presets: ['es2015']
-    })
-    .bundle()
-    .pipe(source('app.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'));
-});
 // Handlebars
 gulp.task('precompile', () => {
   gulp.src('src/templates/*.hbs')
@@ -84,7 +83,7 @@ gulp.task('precompile', () => {
 
 // Register tasks
 gulp.task('build', (callback) => {
-  runSequence('clean', ['copy-assets', 'copy-html', 'concat-vendor', 'sass', 'precompile'], 'babel', callback);
+  runSequence('clean', ['copy-assets', 'copy-html', 'concat-vendor', 'sass', 'precompile'], 'rollup', callback);
 });
 
 // Watchers
@@ -92,8 +91,7 @@ gulp.task('watch', ['build'], () => {
   gulp.watch('src/styles/*.scss', ['sass']);
   gulp.watch('src/assets/**/*.*', ['copy-assets']);
   gulp.watch('src/*.html', ['copy-html']);
-  gulp.watch('src/js/*.js', ['babel']);
-  gulp.watch('src/templates/**/*.hbs', ['babel']);
+  gulp.watch('src/js/*.js', ['rollup']);
   gulp.watch('src/js/vendor/**/*.js', ['concat-vendor']);
-  gulp.watch('src/templates/*.bhs', ['precompile']);
+  gulp.watch('src/templates/*.hbs', ['precompile']);
 });
