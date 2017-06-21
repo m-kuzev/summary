@@ -45,7 +45,7 @@ gulp.task('copy-assets', () => {
 });
 // Copy html files
 gulp.task('copy-html', () => {
-  return gulp.src(['src/index.html'])
+  return gulp.src(['src/index.html', 'src/.htaccess'])
     .pipe(gulp.dest('dist/'));
 });
 // Compile sass
