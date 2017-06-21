@@ -45,7 +45,7 @@
   }
   .views {
     width: 150px;
-    padding-top: 20px;
+    padding-top: 16px;
     padding-left: 20px;
     background-color: #F2F2F2;
     box-sizing: border-box;
@@ -53,27 +53,28 @@
       .view-item {
         float: left;
         margin-right: 10px;
-        width: 30px;
-        height: 30px;
-        background-size: 100%;
+        width: 33px;
+        height: 33px;
+        background-image: url('./assets/images/viewmodes.png');
+        background-repeat: no-repeat;
         cursor: pointer;
         &.table-view {
           &.active {
-            background-image: url('./assets/images/TableView-Active.png');
+            background-position: -34px -34px;
           }
-          background-image: url('./assets/images/TableView-Inactive.png');
+          background-position: -68px -34px;
         }
         &.chart-view {
           &.active {
-            background-image: url('./assets/images/ChartView-Active.png');
+            background-position: 0 0;
           }
-          background-image: url('./assets/images/ChartView-Inactive.png');
+          background-position: -34px 0;
         }
         &.file-view {
           &.active {
-            background-image: url('./assets/images/FileView-Active.png');
+            background-position: -68px 0;
           }
-          background-image: url('./assets/images/FileView-Inactive.png');
+          background-position: 0 -34px;
         }
       }
     }

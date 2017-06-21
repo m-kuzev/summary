@@ -143,6 +143,7 @@ export default class Sidebar {
     });
   }
 
+  /** Event for diffferent performance data type selection/deselection */
   dataTypeEvents() {
     // Event ORIGINS
     // Data type select/deselect
