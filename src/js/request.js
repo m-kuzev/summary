@@ -95,17 +95,39 @@ export default class Request {
    * @param {callback} onError
    */
   _xhrGet(url, onSuccess, onError) {
-    // const xhr = new XMLHttpRequest();
-    // xhr.onreadystatechange = () => {
-    //   if (xhr.readyState == 4 && xhr.status == 200) {
-    //     onSuccess(xhr.responseText);
-    //   } else {
-    //     onError(xhr.responseText);
-    //   }
-    // };
+    const xhr = new XMLHttpRequest();
 
-    // xhr.open('GET', url, true);
-    // xhr.send(null);
+    xhr.addEventListener('load', () => {
+      onSuccess(JSON.parse(xhr.responseText));
+    });
+    xhr.addEventListener('error', () => {
+      onError(JSON.parse(xhr.responseText));
+    });
+
+    xhr.open('GET', url, true);
+    xhr.send(null);
+  }
+
+  /**
+   * XHR GET request
+   * @param {string} url
+   * @param {object} postData
+   * @param {callback} onSuccess
+   * @param {callback} onError
+   */
+  _xhrPost(url, postData, onSuccess, onError) {
+    const xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('load', () => {
+      onSuccess(JSON.parse(xhr.responseText));
+    });
+    xhr.addEventListener('error', () => {
+      onError(JSON.parse(xhr.responseText));
+    });
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.open('POST', url, true);
+    xhr.send(JSON.stringify(postData));
   }
 
   /**
