@@ -1,4 +1,5 @@
 import Template from './template.js';
+import CustomEvents from './customEvents.js';
 import Backend from './backend.js';
 
 const _selectOrder = ['#platform-select', '#device-select', '#game-select', '#build-select'];
@@ -77,17 +78,23 @@ export default class Sidebar {
     // TODO: send request
     // const form = document.getElementById('new-entry-form');
     // const data = new FormData(form);
+    const entryInfo = {
+      requestData: [1, 2, 155, 44]
+    };
 
     // Data for request
     // for (const pair of data.entries()) {
     //   window.console.log(pair[0] + ', ' + pair[1]);
     // }
 
+    // Extend the json with the necessary parameters
     const response = Backend.entryJson();
-    const event = new CustomEvent('sidebar.addEntry', {
-      detail: response
-    });
-    document.dispatchEvent(event);
+    entryInfo.requestData.unshift(response.id);
+    Object.assign(response, entryInfo);
+
+    // Dispatch event
+    CustomEvents.trigger('sidebar.addEntry', response);
+
     this.resetForm();
   }
 
@@ -152,15 +159,10 @@ export default class Sidebar {
       const liElement = e.target.parentNode;
       liElement.classList.toggle('active');
 
-      const eventDetails = {
-        detail: {
-          type: liElement.getAttribute('type'),
-        }
-      };
-
       // Trigger content event for data type enabling/disabling
-      const event = new CustomEvent('sidebar.dataTypeToggle', eventDetails);
-      document.dispatchEvent(event);
+      CustomEvents.trigger('sidebar.dataTypeToggle', {
+        type: liElement.getAttribute('type'),
+      });
     });
   }
 }

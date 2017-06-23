@@ -1,4 +1,5 @@
 import Template from './template.js';
+import CustomEvents from './customEvents.js';
 
 /**
  * Site header manager
@@ -18,15 +19,10 @@ export default class Header {
       if (clicked.classList.contains('entry-item')) {
         // Detect current state
         clicked.classList.toggle('hidden');
-        const eventDetails = {
-          entry_id: clicked.getAttribute('entry_id'),
-        };
 
-        // Dispatch event
-        const event = new CustomEvent('header.showHideEntry', {
-          detail: eventDetails
+        CustomEvents.trigger('header.showHideEntry', {
+          entry_id: clicked.getAttribute('entry_id'),
         });
-        document.dispatchEvent(event);
       }
     });
 
@@ -49,8 +45,8 @@ export default class Header {
 
     // Event TRIGGERS
     /** Add entry to HEADER event */
-    document.addEventListener('sidebar.addEntry', (e) => {
-      Template.load('.entry-list', 'header-entry', e.detail, true);
+    CustomEvents.addListener('sidebar.addEntry', (data) => {
+      Template.load('.entry-list', 'header-entry', data, true);
     });
   }
 }

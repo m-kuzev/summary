@@ -13,9 +13,9 @@ export default class Request {
   constructor(type, url, postData, onSuccess, onError) {
     switch (type) {
       case 'GET':
-        return window.fetch ? this._getRequest(url, onSuccess, onError) : this._xhrGet(url, onSuccess, onError);
+        return window.fetch ? this._fetchGet(url, onSuccess, onError) : this._xhrGet(url, onSuccess, onError);
       case 'POST':
-        return window.fetch ? this._postRequest(url, postData, onSuccess, onError) : this._xhrPost(url, postData, onSuccess, onError);
+        return window.fetch ? this._fetchPost(url, postData, onSuccess, onError) : this._xhrPost(url, postData, onSuccess, onError);
     }
   }
 
@@ -25,7 +25,7 @@ export default class Request {
    * @param {callback} onSuccess
    * @param {callback} onError
    */
-  _getRequest(url, onSuccess, onError) {
+  _fetchGet(url, onSuccess, onError) {
     // Request settings
     const settings = {
       method: 'get',
@@ -62,7 +62,7 @@ export default class Request {
    * @param {callback} onSuccess
    * @param {callback} onError
    */
-  _postRequest(url, postData, onSuccess, onError) {
+  _fetchPost(url, postData, onSuccess, onError) {
     // Request settings
     const settings = {
       method: 'post',

@@ -2,23 +2,30 @@ import TableView from './tableView.js';
 import Backend from './backend.js';
 import Request from './request.js';
 
-
 /**
  * Main content view class
  */
 export default class View {
-  constructor() {
+  constructor(type) {
     const performanceData = Backend.performanceDataJson();
-    this.selectView(performanceData);
+    this.selectView(type, performanceData);
   }
 
-  selectView(performanceData) {
-    // 1) Get information about the view and data from the router
-    // 2) Make data request for the current information
+  selectView(type, performanceData) {
     new Request('GET', 'https://jsonplaceholder.typicode.com/posts', {}, (response) => {
-      window.console.log(response);
-    });
+      // window.console.log(response);
 
-    new TableView(performanceData);
+      switch (type) {
+        case 'table':
+          new TableView(performanceData);
+          break;
+        case 'chart':
+          break;
+        case 'file':
+          break;
+        default:
+          break;
+      }
+    });
   }
 }

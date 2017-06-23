@@ -1,3 +1,4 @@
+import Router from './router.js';
 import Header from './header.js';
 import Sidebar from './sidebar.js';
 import View from './view.js';
@@ -7,9 +8,12 @@ import View from './view.js';
  */
 class App {
   constructor() {
-    new Sidebar();
+    // Initiate router
+    Router.init();
+
     new Header();
-    new View();
+    new Sidebar();
+    new View(Router.getParam('view'));
   }
 }
 
