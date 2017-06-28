@@ -26,13 +26,25 @@ export default class TableView {
       Template.load('.table-entry-data-wrapper', 'table-view-entry-data', data, true);
     });
 
-    /** Show/Hide entry information */
+    /** Show/Hide entry information
+     * @param {object} data - event data with the selected entry_id
+     */
     CustomEvents.addListener('header.showHideEntry', (data) => {
       const entryHeader = document.querySelector('.table-entry-header[entry_id="' + data.entry_id + '"]');
       const entryData = document.querySelector('.table-entry-data-list[entry_id="' + data.entry_id + '"]');
 
       entryHeader.classList.toggle('hidden');
       entryData.classList.toggle('hidden');
+    });
+
+    /** Delete entry information
+     * @param {object} entryId
+     */
+    CustomEvents.addListener('header.deleteEntry', (entryId) => {
+      const entryHeader = document.querySelector('.table-entry-header[entry_id="' + entryId + '"]');
+      entryHeader.parentNode.removeChild(entryHeader);
+      const entryData = document.querySelector('.table-entry-data-list[entry_id="' + entryId + '"]');
+      entryData.parentNode.removeChild(entryData);
     });
 
     /** Show hide performance data type */

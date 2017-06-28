@@ -35,10 +35,11 @@ export default class Header {
         const entryId = clicked.getAttribute('entry_id');
 
         if (confirm('Are you sure you want to delete this entry?')) {
-          const entryElements = document.querySelectorAll('[entry_id="' + entryId + '"]');
-          entryElements.forEach((element) => {
-            element.parentNode.removeChild(element);
-          });
+          const entry = document.querySelector('.entry-item[entry_id="' + entryId + '"]');
+          entry.parentNode.removeChild(entry);
+
+          // Trigger custom event
+          CustomEvents.trigger('header.deleteEntry', entryId);
         }
       }
     });

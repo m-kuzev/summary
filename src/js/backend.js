@@ -82,7 +82,6 @@ export default class Backend {
      */
 
     const json = {
-      id: 17,
       gameName: 'Keeping Up With The Paddys',
       device: 'iPhone 7',
       build: '12/08/16 09:52:11 - 33fcc92',

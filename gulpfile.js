@@ -18,18 +18,18 @@ const rollupUglify = require('rollup-plugin-uglify');
 
 gulp.task('rollup', function () {
   return rollup({
-      entry: './src/js/app.js',
-      format: 'umd',
-      plugins: [
-        babel({
-          exclude: 'node_modules/**',
-          presets: ['es2015-rollup']
-        }),
-        rollupUglify()
-      ],
-    })
-    .pipe(source('app.js'))
-    .pipe(gulp.dest('./dist/'));
+    entry: './src/js/app.js',
+    format: 'iife',
+    plugins: [
+      babel({
+        exclude: 'node_modules/**',
+        presets: ['es2015-rollup']
+      }),
+      rollupUglify()
+    ],
+  })
+  .pipe(source('app.js'))
+  .pipe(gulp.dest('./dist/'));
 });
 
 // Clean dist

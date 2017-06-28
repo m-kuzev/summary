@@ -1,6 +1,7 @@
 import Template from './template.js';
 import CustomEvents from './customEvents.js';
 import Backend from './backend.js';
+import Router from './router.js';
 
 const _selectOrder = ['#platform-select', '#device-select', '#game-select', '#build-select'];
 
@@ -10,11 +11,11 @@ const _selectOrder = ['#platform-select', '#device-select', '#game-select', '#bu
 export default class Sidebar {
   constructor() {
     this.loadDataTypes();
-    this.loadOptions();
+    this.renderOptions();
   }
 
   // Load sidebar ENTRY options
-  loadOptions() {
+  renderOptions() {
     const globalOptions = {
       disable_search_threshold: 10,
       no_results_text: 'No results!'
@@ -28,11 +29,11 @@ export default class Sidebar {
     $('#game-select').chosen(globalOptions);
     $('#build-select').chosen(globalOptions);
 
-    this.entryOptions();
-    this.addEntryEvent();
+    this.dropdownEvents();
+    this.entryEvents();
   }
 
-  entryOptions() {
+  dropdownEvents() {
     // Select menus events
     _selectOrder.forEach((element, index) => {
       // Change event
@@ -59,8 +60,14 @@ export default class Sidebar {
     });
   }
 
-  addEntryEvent() {
-    // Add button event
+  entryEvents() {
+    window.console.log('This is it: ', Router.entries);
+    /** LOAD previosly selected entries from URL */
+    if (Router.entries.length) {
+
+    }
+
+    /** ADD new entry */
     const addButton = document.getElementById('add-entry');
     addButton.addEventListener('click', (e) => {
       e.preventDefault();
@@ -89,7 +96,7 @@ export default class Sidebar {
 
     // Extend the json with the necessary parameters
     const response = Backend.entryJson();
-    entryInfo.requestData.unshift(response.id);
+    response.id = this.generateEntryId(100, 999);
     Object.assign(response, entryInfo);
 
     // Dispatch event
@@ -164,5 +171,14 @@ export default class Sidebar {
         type: liElement.getAttribute('type'),
       });
     });
+  }
+
+  /** Generate random entry id
+   * @param {number} min - minimum number range
+   * @param {number} max - maximum number range
+   * @returns {number} id
+   */
+  generateEntryId(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
