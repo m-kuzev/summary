@@ -1,12 +1,19 @@
 import Template from './template.js';
 import CustomEvents from './customEvents.js';
+import Router from './router.js';
 
 /**
  * Site header manager
  */
 export default class Header {
   constructor() {
+    this.initialViewSelect();
     this.addHeaderEvents();
+  }
+
+  initialViewSelect() {
+    const view = Router.getParam('view');
+    document.querySelector('.view-item[view-type="' + view + '"]').classList.add('active');
   }
 
   addHeaderEvents() {
@@ -24,6 +31,17 @@ export default class Header {
           entry_id: clicked.getAttribute('entry_id'),
         });
       }
+    });
+
+    /** Change main view */
+    document.getElementsByClassName('view-list')[0].addEventListener('click', (e) => {
+      const views = document.getElementsByClassName('view-item');
+      for (let view of views) {
+        view.classList.remove('active');
+      }
+
+      e.target.classList.add('active');
+      CustomEvents.trigger('header.changeView', e.target.getAttribute('view-type'));
     });
 
     /** Delete entry */

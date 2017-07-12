@@ -1,5 +1,6 @@
-Options +Indexes 
-Options +FollowSymlinks
+Options -Indexes +FollowSymlinks -Includes
 
 RewriteEngine On
+RewriteBase /
+RewriteRule !\.(js|css) dist/index.html?page=$1 [L]
 RewriteRule (.*)$ dist/$1 [L]

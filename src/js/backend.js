@@ -1,6 +1,9 @@
+/**
+ * Backend simulator
+ */
 export default class Backend {
   // For 'Performance data' section in the sidebar
-  static performanceDataJson() {
+  static performanceCategories() {
     const dataOptions = {
       categories: {
         devicePerformance: {

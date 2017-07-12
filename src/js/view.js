@@ -1,31 +1,37 @@
 import TableView from './tableView.js';
 import Backend from './backend.js';
-import Request from './request.js';
+import CustomEvents from './customEvents.js';
 
 /**
  * Main content view class
  */
 export default class View {
   constructor(type) {
-    const performanceData = Backend.performanceDataJson();
-    this.selectView(type, performanceData);
+    this.selectView(type);
+    this.viewEvents();
   }
 
-  selectView(type, performanceData) {
-    new Request('GET', 'https://jsonplaceholder.typicode.com/posts', {}, (response) => {
-      // window.console.log(response);
+  selectView(type) {
+    // TODO: Remove main-content
+    const performanceData = Backend.performanceCategories();
 
-      switch (type) {
-        case 'table':
-          new TableView(performanceData);
-          break;
-        case 'chart':
-          break;
-        case 'file':
-          break;
-        default:
-          break;
-      }
+    switch (type) {
+      case 'table':
+        new TableView(performanceData);
+        break;
+      case 'chart':
+        break;
+      case 'file':
+        break;
+      default:
+        break;
+    }
+  }
+
+  viewEvents() {
+    /** Change view */
+    CustomEvents.addListener('header.changeView', (viewType) => {
+      this.selectView(viewType);
     });
   }
 }

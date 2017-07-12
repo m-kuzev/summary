@@ -11,9 +11,9 @@ class App {
     // Initiate router
     Router.init();
 
+    new View(Router.getParam('view'));
     new Header();
     new Sidebar();
-    new View(Router.getParam('view'));
   }
 }
 

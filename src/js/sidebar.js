@@ -12,9 +12,12 @@ export default class Sidebar {
   constructor() {
     this.loadDataTypes();
     this.renderOptions();
+    this.loadPreviousEntries();
   }
 
-  // Load sidebar ENTRY options
+  /**
+   * Render sidebar ENTRY dropdown options
+   */
   renderOptions() {
     const globalOptions = {
       disable_search_threshold: 10,
@@ -33,6 +36,9 @@ export default class Sidebar {
     this.entryEvents();
   }
 
+  /**
+   * Add the entry options dropdown events
+   */
   dropdownEvents() {
     // Select menus events
     _selectOrder.forEach((element, index) => {
@@ -60,13 +66,10 @@ export default class Sidebar {
     });
   }
 
+  /**
+   * Add sidebar entry related events
+   */
   entryEvents() {
-    window.console.log('This is it: ', Router.entries);
-    /** LOAD previosly selected entries from URL */
-    if (Router.entries.length) {
-
-    }
-
     /** ADD new entry */
     const addButton = document.getElementById('add-entry');
     addButton.addEventListener('click', (e) => {
@@ -74,20 +77,33 @@ export default class Sidebar {
 
       // Validate for missing data
       if (this.validateDropdowns()) {
-        this.formatAndSendData();
+        this.createEntry();
       } else {
         alert('Please select the missing options!');
       }
     });
   }
 
-  formatAndSendData() {
+  /**
+   * Load previous entries on url refresh
+   */
+  loadPreviousEntries() {
+    if (Router.entries.length) {
+      Router.entries.forEach((entryData) => {
+        this.createEntry(entryData);
+      });
+    }
+  }
+
+  /**
+   * Format entry data and send entry creation event
+   * @param {array} data - entry data
+   */
+  createEntry(data = false) {
     // TODO: send request
     // const form = document.getElementById('new-entry-form');
     // const data = new FormData(form);
-    const entryInfo = {
-      requestData: [1, 2, 155, 44]
-    };
+    const entryInfo = '[1,2,155,44]';
 
     // Data for request
     // for (const pair of data.entries()) {
@@ -96,8 +112,7 @@ export default class Sidebar {
 
     // Extend the json with the necessary parameters
     const response = Backend.entryJson();
-    response.id = this.generateEntryId(100, 999);
-    Object.assign(response, entryInfo);
+    response.id = entryInfo;
 
     // Dispatch event
     CustomEvents.trigger('sidebar.addEntry', response);
@@ -105,7 +120,9 @@ export default class Sidebar {
     this.resetForm();
   }
 
-  /** Reset entry form after successfully adding the entry */
+  /** 
+   * Reset entry form after successfully adding the entry 
+   */
   resetForm() {
     // Default platform select values
     this.fillSelect(_selectOrder[0], Backend.getOptions('platform'));
@@ -148,16 +165,20 @@ export default class Sidebar {
     });
   }
 
-  /** Load sidebar data type options */
+  /** 
+   * Load sidebar data type options 
+   */
   loadDataTypes() {
-    const performanceData = Backend.performanceDataJson();
+    const performanceData = Backend.performanceCategories();
 
     Template.load('.performance-data', 'sidebar-data-type', performanceData, false, () => {
       this.dataTypeEvents();
     });
   }
 
-  /** Event for diffferent performance data type selection/deselection */
+  /** 
+   * Event for diffferent performance data type selection/deselection
+   */
   dataTypeEvents() {
     // Event ORIGINS
     // Data type select/deselect
@@ -171,14 +192,5 @@ export default class Sidebar {
         type: liElement.getAttribute('type'),
       });
     });
-  }
-
-  /** Generate random entry id
-   * @param {number} min - minimum number range
-   * @param {number} max - maximum number range
-   * @returns {number} id
-   */
-  generateEntryId(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
   }
 }
